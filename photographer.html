@@ -28,18 +28,31 @@
 			<div class="modal">
 				<header>
           <h2>Contactez-moi</h2>
+          <h3></h3>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
 				<form>
 					<div>
-						<label>Prénom</label>
-						<input />
+						<label for="prenom">Prénom</label>
+						<input id="prenom" placeholder="John" />
 					</div>
-          <button class="contact_button">Envoyer</button>
+					<div>
+						<label for="nom">Nom</label>
+						<input id="nom" placeholder="Doe" />
+					</div>
+					<div>
+						<label for="email">Email</label>
+						<input id="email" placeholder="johndoe@test.com" />
+					</div>
+					<div>
+						<label for="message">Votre message</label>
+						<textarea name="message" id="message" rows="8" placeholder="Bonjour, j'aimerais collaborer avec vous..."></textarea>
+					</div>
+          <button class="contact_button" aria-label="Envoyer le formulaire">Envoyer</button>
 				</form>
 			</div>
 		</div>
-    <script type="module" src="/scripts/pages/photographer.js"></script>
+    <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
   </body>
 </html>
