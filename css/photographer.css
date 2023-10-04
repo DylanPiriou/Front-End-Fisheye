@@ -3,9 +3,23 @@
 }
 
 .photograph-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+}
+
+.photograph-header img {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.photograph-header span {
+    color: #D3573C;
 }
 
 .contact_button {

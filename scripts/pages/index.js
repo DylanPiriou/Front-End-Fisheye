@@ -22,7 +22,7 @@ async function getPhotographers() {
             photographerImg.src = `./assets/photographers/${photographer.portrait}`;
             photographerImg.alt = photographer.name;
 
-            const photographerName = document.createElement("h2");
+            const photographerName = document.createElement("h1");
             photographerName.textContent = photographer.name;
 
             const photographerCity = document.createElement("span");
