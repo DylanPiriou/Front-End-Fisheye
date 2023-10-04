@@ -24,8 +24,21 @@
     border-radius: 50%;
 }
 
-.photograph-header span {
+.photograph-header .photograph-data {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+.photograph-header .photograph-data h2 {
+    font-size: 36px;
     color: #D3573C;
+}
+
+.photograph-header .photograph-data span {
+    color: #D3573C;
+    font-size: 24px;
 }
 
 .contact_button {

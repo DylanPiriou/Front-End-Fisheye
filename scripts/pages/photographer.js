@@ -17,7 +17,7 @@ async function getPhotographersData(){
         const urlID = urlParams.get('id');
         const photographerData = photographers.filter(x => x.id == urlID);
 
-        const title = document.querySelector(".photograph-data h1");
+        const title = document.querySelector(".photograph-data h2");
         title.textContent = photographerData[0].name;
         const location = document.querySelector(".photograph-data span");
         location.textContent = photographerData[0].city + ", " + photographerData[0].country;
