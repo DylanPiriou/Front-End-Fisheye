@@ -44,7 +44,13 @@ h1 {
     font-size: 36px;
 }
 
+.photographer_section article span {
+    color: #D3573C;
+}
+
 .photographer_section article img {
     height: 200px;
     width: 200px;
+    object-fit: cover;
+    border-radius: 50%;
 }
