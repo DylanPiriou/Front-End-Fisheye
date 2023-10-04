@@ -44,14 +44,25 @@ async function getPhotographers() {
             // Ajout de l'article au conteneur global
             photographersSection.appendChild(photographerArticle);
         });
-
+        addArticleEvent();
     } catch (error) {
         console.error(`Une erreur s'est produite : ${error}`);
     }
 }
-
 getPhotographers();
 
+
+function addArticleEvent() {
+    const articles = document.querySelectorAll('article');
+    console.log(articles)
+    articles.forEach(article => {
+        console.log(article)
+        article.addEventListener('click', () => {
+            const id = article.id;
+            window.location.href = `../../photographer.html?id=${id}`;
+        })
+    })
+}
 
 
 // async function displayData(photographers) {

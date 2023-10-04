@@ -6,12 +6,13 @@ body {
 }
 
 
-header {
+header a{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     height: 90px;
+    text-decoration: none;
 }
 
 h1 {
