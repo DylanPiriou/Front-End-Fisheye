@@ -93,6 +93,24 @@ main{
     object-fit: cover;
 }
 
+.gallery_img_content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.gallery_img_title {
+    color: #901C1C;
+}
+
+.gallery_img_likes_wrapper {
+    color: #901C1C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .2vw;
+}
 
 .modal {
     position: fixed;
