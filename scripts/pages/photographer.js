@@ -35,6 +35,7 @@ async function getPhotographersData() {
             const photographerId = photographerData[0].id;
             const photographerPrice = photographerData[0].price;
             const filteredMedia = media.filter(item => item.photographerId === photographerId);
+            console.log(filteredMedia)
             const photographerLikesNumber = filteredMedia
                 .map(item => item.likes)
                 .reduce((acc, curr) => acc + curr, 0);

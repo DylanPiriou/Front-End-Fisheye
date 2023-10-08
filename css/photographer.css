@@ -82,13 +82,14 @@ main{
 .gallery_grid {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6vw;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-auto-flow: row;
+    gap: 8vw;
 }
 
 .gallery_grid img,
 .gallery_grid video {
-    width: 100%; /* Les éléments occupent toute la largeur de leur cellule */
+    width: 100%;
     aspect-ratio: 1;
     object-fit: cover;
 }
@@ -110,6 +111,37 @@ main{
     align-items: center;
     justify-content: center;
     gap: .2vw;
+}
+
+.img_modal_container{
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    display: none;
+}
+
+.img_modal{
+    width: 60%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.img_modal img,
+.img_modal video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.img_modal h3 {
+    width: 100%;
+    color: #901C1C;
 }
 
 .modal {

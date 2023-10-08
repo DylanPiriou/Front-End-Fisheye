@@ -3,6 +3,7 @@ export function createGallery(id, filteredMedia) {
 
     // Parcourir chaque élément filtré
     filteredMedia.forEach(item => {
+        
         // Créer les nouveaux éléments du DOM
         const imgWrapper = document.createElement("div");
         imgWrapper.className = "gallery_img_wrapper";
@@ -31,6 +32,18 @@ export function createGallery(id, filteredMedia) {
             imgContent.appendChild(likesWrapper);
             imgWrapper.appendChild(imgContent);
             grid.appendChild(imgWrapper)
+
+            imgWrapper.addEventListener('click', () => {
+                const imgModalContainer = document.querySelector(".img_modal_container");
+                const imgModal = document.querySelector(".img_modal");
+                const img = document.createElement("img");
+                img.src = `./assets/gallery/${id}/${item.image}`;
+                imgModal.appendChild(img);
+                const title = document.querySelector(".img_modal h3");
+                title.textContent = item.title;
+                imgModal.appendChild(title);
+                imgModalContainer.style.display = "flex";
+            });
         }
 
         // Créer une balise <video> pour chaque élément vidéo
@@ -38,7 +51,7 @@ export function createGallery(id, filteredMedia) {
             const video = document.createElement("video");
             video.src = `./assets/gallery/${id}/${item.video}`;
             video.setAttribute('aria-label', `voir la vidéo '${item.title}'`)
-            video.controls = true;
+            video.autoplay = true;
             imgWrapper.appendChild(video);
             imgTitle.textContent = item.title;
             likesNumber.textContent = item.likes;
@@ -48,6 +61,19 @@ export function createGallery(id, filteredMedia) {
             imgContent.appendChild(likesWrapper);
             imgWrapper.appendChild(imgContent);
             grid.appendChild(imgWrapper)
+
+            imgWrapper.addEventListener('click', () => {
+                const imgModalContainer = document.querySelector(".img_modal_container");
+                const imgModal = document.querySelector(".img_modal");
+                const video = document.createElement("video");
+                video.src = `./assets/gallery/${id}/${item.video}`;
+                video.controls = true;
+                imgModal.appendChild(video);
+                const title = document.querySelector(".img_modal h3");
+                title.textContent = item.title;
+                imgModal.appendChild(title);
+                imgModalContainer.style.display = "flex";
+            });
         }
     });
 }
