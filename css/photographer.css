@@ -92,6 +92,7 @@ main{
     width: 100%;
     aspect-ratio: 1;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .gallery_img_content {

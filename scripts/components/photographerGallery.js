@@ -88,6 +88,7 @@ export function createGallery(id, filteredMedia) {
         if (item.image) {
             const img = document.createElement("img");
             img.src = `./assets/gallery/${id}/${item.image}`;
+            img.className = "illustration";
             img.alt = item.title;
             imgWrapper.appendChild(img);
             imgTitle.textContent = item.title;
@@ -98,16 +99,12 @@ export function createGallery(id, filteredMedia) {
             imgContent.appendChild(likesWrapper);
             imgWrapper.appendChild(imgContent);
             grid.appendChild(imgWrapper);
-
-            imgWrapper.addEventListener('click', () => {
-                currentIndex = index;
-                handleMediaClick(item, currentIndex);
-            });
         }
 
         if (item.video) {
             const video = document.createElement("video");
             video.src = `./assets/gallery/${id}/${item.video}`;
+            video.className = "illustration";
             video.autoplay = true;
             imgWrapper.appendChild(video);
             imgTitle.textContent = item.title;
@@ -119,10 +116,16 @@ export function createGallery(id, filteredMedia) {
             imgWrapper.appendChild(imgContent);
             grid.appendChild(imgWrapper);
 
-            imgWrapper.addEventListener('click', () => {
-                currentIndex = index;
-                handleMediaClick(item, currentIndex);
-            });
         }
+
+        imgWrapper.addEventListener('click', () => {
+            currentIndex = index;
+            handleMediaClick(item, currentIndex);
+        });
+
+        likesLogo.addEventListener("click", (e) => {
+            e.stopPropagation();
+            likesLogo.src = "../../assets/icons/heart-red-full.svg";
+        })
     });
 }
