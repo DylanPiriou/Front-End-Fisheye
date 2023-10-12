@@ -1,3 +1,5 @@
+import { handleModuleLikesPrice } from "./moduleLikesPrice.js";
+
 // Gestion de la gallerie d'images
 export function createGallery(id, filteredMedia, totalLikes, price) {
     const grid = document.querySelector(".gallery_grid");
@@ -117,14 +119,15 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
             imgContent.appendChild(likesWrapper);
             imgWrapper.appendChild(imgContent);
             grid.appendChild(imgWrapper);
-
         }
 
+        // Event pour ouvrir la lightbox
         imgWrapper.addEventListener('click', () => {
             currentIndex = index;
             handleMediaClick(item, currentIndex);
         });
 
+        // Event pour ajouter/supprimer un j'aime
         likesLogo.addEventListener("click", (e) => {
             e.stopPropagation();
             if (liked) {
@@ -142,14 +145,5 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
             likesAmount.textContent = updatedTotalLikes;
         });
     });
-
-    // Modale avec le nombre de likes et le tarif journalier
-    const likesContainer = document.querySelector(".likes_container");
-    const likesNumber = document.querySelector(".likes_number");
-    const likesAmount = document.querySelector(".likes");
-    const priceNumber = document.querySelector(".price");
-    likesAmount.textContent = updatedTotalLikes;
-    priceNumber.textContent = `${price}€/jour`;
-    likesNumber.appendChild(likesAmount);
-    likesContainer.appendChild(priceNumber);
+    handleModuleLikesPrice(updatedTotalLikes, price)
 }

@@ -18,7 +18,9 @@ async function renderPhotographers() {
 renderPhotographers();
 
 // ------------- TODO ------------- //
-// Navigation dans la modale
+// Création gallerie (done)
+// Création modale (done)
+// Navigation dans la modale (done)
+// Système de likes (++/-- au click) (done)
 // Système de tri
-// Système de likes (incrémentation au click)
 // Pouvoir naviguer avec tab

@@ -85,6 +85,7 @@ main{
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     grid-auto-flow: row;
     gap: 8vw;
+    margin-bottom: 50px;
 }
 
 .gallery_grid img,
