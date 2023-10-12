@@ -1,5 +1,5 @@
 // Gestion de la gallerie d'images
-export function createGallery(id, filteredMedia) {
+export function createGallery(id, filteredMedia, totalLikes, price) {
     const grid = document.querySelector(".gallery_grid");
     const imgModalContainer = document.querySelector(".img_modal_container");
     const imgModal = document.querySelector(".img_modal");
@@ -7,6 +7,7 @@ export function createGallery(id, filteredMedia) {
     const prevButton = document.querySelector(".img_modal_prev");
     const nextButton = document.querySelector(".img_modal_next");
     let currentIndex;
+    let updatedTotalLikes = totalLikes;
 
     // Fonction pour effacer le contenu multimédia de la modal
     function clearModalContent() {
@@ -84,6 +85,7 @@ export function createGallery(id, filteredMedia) {
         const likesNumber = document.createElement("p");
         const likesLogo = document.createElement("img");
         likesLogo.src = "../../assets/icons/heart-red.svg";
+        let liked = false;
 
         if (item.image) {
             const img = document.createElement("img");
@@ -125,7 +127,29 @@ export function createGallery(id, filteredMedia) {
 
         likesLogo.addEventListener("click", (e) => {
             e.stopPropagation();
-            likesLogo.src = "../../assets/icons/heart-red-full.svg";
-        })
+            if (liked) {
+                liked = false;
+                likesLogo.src = "../../assets/icons/heart-red.svg";
+                item.likes--;
+                updatedTotalLikes--;
+            } else {
+                liked = true;
+                likesLogo.src = "../../assets/icons/heart-red-full.svg";
+                item.likes++;
+                updatedTotalLikes++;
+            }
+            likesNumber.textContent = item.likes;
+            likesAmount.textContent = updatedTotalLikes;
+        });
     });
+
+    // Modale avec le nombre de likes et le tarif journalier
+    const likesContainer = document.querySelector(".likes_container");
+    const likesNumber = document.querySelector(".likes_number");
+    const likesAmount = document.querySelector(".likes");
+    const priceNumber = document.querySelector(".price");
+    likesAmount.textContent = updatedTotalLikes;
+    priceNumber.textContent = `${price}€/jour`;
+    likesNumber.appendChild(likesAmount);
+    likesContainer.appendChild(priceNumber);
 }
