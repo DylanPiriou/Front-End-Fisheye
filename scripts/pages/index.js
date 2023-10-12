@@ -88,3 +88,9 @@ async function renderPhotographers() {
 }
 
 renderPhotographers();
+
+// ------------- TODO ------------- //
+// Navigation dans la modale
+// Système de tri
+// Système de likes (incrémentation au click)
+// Pouvoir naviguer avec tab

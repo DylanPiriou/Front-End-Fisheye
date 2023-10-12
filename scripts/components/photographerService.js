@@ -1,3 +1,4 @@
+// Appel des données depuis le JSON
 export async function fetchPhotographers() {
     try {
         const response = await fetch("../../data/photographers.json");

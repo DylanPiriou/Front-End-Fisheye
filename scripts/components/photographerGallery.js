@@ -1,3 +1,4 @@
+// Gestion de la gallerie d'images
 export function createGallery(id, filteredMedia) {
     const grid = document.querySelector(".gallery_grid");
     const imgModalContainer = document.querySelector(".img_modal_container");
@@ -5,7 +6,7 @@ export function createGallery(id, filteredMedia) {
     const closeModal = document.querySelector(".img_modal_close");
     const prevButton = document.querySelector(".img_modal_prev");
     const nextButton = document.querySelector(".img_modal_next");
-    let currentIndex = 0; // Indice de l'image actuellement affichée
+    let currentIndex;
 
     // Fonction pour effacer le contenu multimédia de la modal
     function clearModalContent() {
@@ -70,9 +71,10 @@ export function createGallery(id, filteredMedia) {
     }
 
     // Parcourir chaque élément filtré
-    filteredMedia.forEach(item => {
+    filteredMedia.forEach((item, index) => {
         const imgWrapper = document.createElement("div");
         imgWrapper.className = "gallery_img_wrapper";
+        imgWrapper.setAttribute("aria-label", `Voir '${item.title}'`)
         const imgContent = document.createElement("div");
         imgContent.className = "gallery_img_content";
         const imgTitle = document.createElement("h3");
@@ -87,7 +89,6 @@ export function createGallery(id, filteredMedia) {
             const img = document.createElement("img");
             img.src = `./assets/gallery/${id}/${item.image}`;
             img.alt = item.title;
-            img.setAttribute('aria-label', `voir l'image '${item.title}'`)
             imgWrapper.appendChild(img);
             imgTitle.textContent = item.title;
             likesNumber.textContent = item.likes;
@@ -99,14 +100,14 @@ export function createGallery(id, filteredMedia) {
             grid.appendChild(imgWrapper);
 
             imgWrapper.addEventListener('click', () => {
-                handleMediaClick(item);
+                currentIndex = index;
+                handleMediaClick(item, currentIndex);
             });
         }
 
         if (item.video) {
             const video = document.createElement("video");
             video.src = `./assets/gallery/${id}/${item.video}`;
-            video.setAttribute('aria-label', `voir la vidéo '${item.title}'`)
             video.autoplay = true;
             imgWrapper.appendChild(video);
             imgTitle.textContent = item.title;
@@ -120,7 +121,7 @@ export function createGallery(id, filteredMedia) {
 
             imgWrapper.addEventListener('click', () => {
                 currentIndex = index;
-                handleMediaClick(item, index);
+                handleMediaClick(item, currentIndex);
             });
         }
     });

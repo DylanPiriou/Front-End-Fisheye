@@ -1,3 +1,4 @@
+// Modale avec le nombre de likes et le tarif journalier
 export function handleLikesContainer(likes, price) {
     const likesContainer = document.querySelector(".likes_container");
     const likesNumber = document.querySelector(".likes_number");

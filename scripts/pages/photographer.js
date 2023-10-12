@@ -15,6 +15,7 @@ async function getPhotographersData() {
         }
 
         const data = await response.json();
+        console.log(data);
         const { photographers, media } = data;
         const urlParams = new URLSearchParams(window.location.search);
         const urlID = urlParams.get('id');
