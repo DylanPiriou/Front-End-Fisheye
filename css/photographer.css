@@ -111,12 +111,12 @@ main{
     position: absolute;
     right: 10px;
     top: 50%;
-    transform: translateY(-50%);
+    transform: rotate(180deg) translateY(50%);
     cursor: pointer;
 }
 
 .arrow-top.open {
-    transform: rotate(180deg) translateY(50%);
+    transform: rotate(0) translateY(-50%);
 }
 
 .dropdown-content {
