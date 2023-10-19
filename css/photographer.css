@@ -115,8 +115,13 @@ main{
     cursor: pointer;
 }
 
+.arrow-top.open {
+    transform: rotate(180deg) translateY(50%);
+}
+
 .dropdown-content {
     margin-top: -3px;
+    padding: 0 10px;
     width: 100%;
     display: none;
     position: absolute;
@@ -132,7 +137,7 @@ main{
 }
 
 .dropdown-content button {
-    padding: 10px 30px;
+    padding: 10px 20px;
     border: none;
     width: 100%;
     background: none;
@@ -141,10 +146,6 @@ main{
     text-align: left;
     display: block;
     cursor: pointer;
-}
-
-.dropdown-content button:hover {
-    background: rgb(173, 31, 31);
 }
 
 .gallery_grid {

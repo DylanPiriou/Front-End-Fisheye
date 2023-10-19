@@ -74,10 +74,12 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
     }
 
     const dropdown = document.querySelector('.dropdown');
+    const arrow = document.querySelector('.arrow-top')
     const buttons = document.querySelectorAll('.dropdown-content button');
 
     dropdown.addEventListener('click', () => {
         dropdown.classList.toggle('active');
+        arrow.classList.toggle("open");
     });
 
     const filterBtn = document.querySelectorAll(".filterBtn")
@@ -114,17 +116,6 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
             }
         });
     });
-    
-
-    // titleBtn.addEventListener("click", () => {
-    //     console.log(filteredMedia.sort((a, b) => a.title.localeCompare(b.title)));
-    //     updateGallery();
-    // })
-
-    // dateBtn.addEventListener("click", () => {
-    //     filteredMedia.sort((a, b) => new Date(b.date) - new Date(a.date));
-    //     updateGallery();
-    // })
 
     function updateGallery() {
 
