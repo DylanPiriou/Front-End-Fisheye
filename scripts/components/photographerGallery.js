@@ -73,77 +73,145 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
         imgModalContainer.style.display = "flex";
     }
 
-    // Parcourir chaque élément filtré
-    filteredMedia.forEach((item, index) => {
-        const imgWrapper = document.createElement("div");
-        imgWrapper.className = "gallery_img_wrapper";
-        imgWrapper.setAttribute("aria-label", `Voir '${item.title}'`)
-        const imgContent = document.createElement("div");
-        imgContent.className = "gallery_img_content";
-        const imgTitle = document.createElement("h3");
-        imgTitle.className = "gallery_img_title";
-        const likesWrapper = document.createElement("span");
-        likesWrapper.className = "gallery_img_likes_wrapper";
-        const likesNumber = document.createElement("p");
-        const likesLogo = document.createElement("img");
-        likesLogo.src = "../../assets/icons/heart-red.svg";
-        let liked = false;
+    const dropdown = document.querySelector('.dropdown');
+    const buttons = document.querySelectorAll('.dropdown-content button');
 
-        if (item.image) {
-            const img = document.createElement("img");
-            img.src = `./assets/gallery/${id}/${item.image}`;
-            img.className = "illustration";
-            img.alt = item.title;
-            imgWrapper.appendChild(img);
-            imgTitle.textContent = item.title;
-            likesNumber.textContent = item.likes;
-            likesWrapper.appendChild(likesNumber);
-            likesWrapper.appendChild(likesLogo);
-            imgContent.appendChild(imgTitle);
-            imgContent.appendChild(likesWrapper);
-            imgWrapper.appendChild(imgContent);
-            grid.appendChild(imgWrapper);
-        }
+    dropdown.addEventListener('click', () => {
+        dropdown.classList.toggle('active');
+    });
 
-        if (item.video) {
-            const video = document.createElement("video");
-            video.src = `./assets/gallery/${id}/${item.video}`;
-            video.className = "illustration";
-            video.autoplay = true;
-            imgWrapper.appendChild(video);
-            imgTitle.textContent = item.title;
-            likesNumber.textContent = item.likes;
-            likesWrapper.appendChild(likesNumber);
-            likesWrapper.appendChild(likesLogo);
-            imgContent.appendChild(imgTitle);
-            imgContent.appendChild(likesWrapper);
-            imgWrapper.appendChild(imgContent);
-            grid.appendChild(imgWrapper);
-        }
+    const filterBtn = document.querySelectorAll(".filterBtn")
 
-        // Event pour ouvrir la lightbox
-        imgWrapper.addEventListener('click', () => {
-            currentIndex = index;
-            handleMediaClick(item, currentIndex);
-        });
+    filteredMedia.sort((a, b) => b.likes - a.likes);
+    updateGallery();
 
-        // Event pour ajouter/supprimer un j'aime
-        likesLogo.addEventListener("click", (e) => {
-            e.stopPropagation();
-            if (liked) {
-                liked = false;
-                likesLogo.src = "../../assets/icons/heart-red.svg";
-                item.likes--;
-                updatedTotalLikes--;
-            } else {
-                liked = true;
-                likesLogo.src = "../../assets/icons/heart-red-full.svg";
-                item.likes++;
-                updatedTotalLikes++;
+    filterBtn.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const dataValue = btn.getAttribute("data-value");
+            const currentBtn = document.querySelector('.dropbtn');
+            const currentDataValue = currentBtn.getAttribute('data-value');
+    
+            // Échange des textes entre les boutons
+            const currentText = currentBtn.textContent.trim();
+            currentBtn.textContent = btn.textContent.trim();
+            btn.textContent = currentText;
+    
+            // Mise à jour de l'attribut data-value
+            currentBtn.setAttribute('data-value', dataValue);
+            btn.setAttribute('data-value', currentDataValue);
+    
+            if (dataValue === "date") {
+                filteredMedia.sort((a, b) => new Date(b.date) - new Date(a.date));
+                updateGallery();
             }
-            likesNumber.textContent = item.likes;
-            likesAmount.textContent = updatedTotalLikes;
+            else if (dataValue === "title") {
+                filteredMedia.sort((a, b) => a.title.localeCompare(b.title));
+                updateGallery();
+            }
+            else {
+                filteredMedia.sort((a, b) => b.likes - a.likes);
+                updateGallery();
+            }
         });
     });
-    handleModuleLikesPrice(updatedTotalLikes, price)
+    
+
+    // titleBtn.addEventListener("click", () => {
+    //     console.log(filteredMedia.sort((a, b) => a.title.localeCompare(b.title)));
+    //     updateGallery();
+    // })
+
+    // dateBtn.addEventListener("click", () => {
+    //     filteredMedia.sort((a, b) => new Date(b.date) - new Date(a.date));
+    //     updateGallery();
+    // })
+
+    function updateGallery() {
+
+        // Efface la galerie actuelle
+        while (grid.firstChild) {
+            grid.removeChild(grid.firstChild);
+        }
+
+        // Parcourir chaque élément filtré
+        filteredMedia.forEach((item, index) => {
+            const imgWrapper = document.createElement("div");
+            imgWrapper.className = "gallery_img_wrapper";
+            imgWrapper.setAttribute("aria-label", `Voir '${item.title}'`)
+            const imgContent = document.createElement("div");
+            imgContent.className = "gallery_img_content";
+            const imgTitle = document.createElement("h3");
+            imgTitle.className = "gallery_img_title";
+            const likesWrapper = document.createElement("span");
+            likesWrapper.className = "gallery_img_likes_wrapper";
+            const likesNumber = document.createElement("p");
+            const likesLogo = document.createElement("img");
+            likesLogo.src = "../../assets/icons/heart-red.svg";
+            let liked = false;
+
+            if (item.image) {
+                const img = document.createElement("img");
+                img.src = `./assets/gallery/${id}/${item.image}`;
+                img.className = "illustration";
+                img.alt = item.title;
+                imgWrapper.appendChild(img);
+                imgTitle.textContent = item.title;
+                likesNumber.textContent = item.likes;
+                likesWrapper.appendChild(likesNumber);
+                likesWrapper.appendChild(likesLogo);
+                imgContent.appendChild(imgTitle);
+                imgContent.appendChild(likesWrapper);
+                imgWrapper.appendChild(imgContent);
+                grid.appendChild(imgWrapper);
+            }
+
+            if (item.video) {
+                const video = document.createElement("video");
+                video.src = `./assets/gallery/${id}/${item.video}`;
+                video.className = "illustration";
+                video.autoplay = true;
+                imgWrapper.appendChild(video);
+                imgTitle.textContent = item.title;
+                likesNumber.textContent = item.likes;
+                likesWrapper.appendChild(likesNumber);
+                likesWrapper.appendChild(likesLogo);
+                imgContent.appendChild(imgTitle);
+                imgContent.appendChild(likesWrapper);
+                imgWrapper.appendChild(imgContent);
+                grid.appendChild(imgWrapper);
+            }
+
+            // Event pour ouvrir la lightbox
+            imgWrapper.addEventListener('click', () => {
+                currentIndex = index;
+                handleMediaClick(item, currentIndex);
+            });
+
+            // Event pour ajouter/supprimer un j'aime
+            likesLogo.addEventListener("click", (e) => {
+                e.stopPropagation();
+                if (liked) {
+                    liked = false;
+                    likesLogo.src = "../../assets/icons/heart-red.svg";
+                    item.likes--;
+                    updatedTotalLikes--;
+                } else {
+                    liked = true;
+                    likesLogo.src = "../../assets/icons/heart-red-full.svg";
+                    item.likes++;
+                    updatedTotalLikes++;
+                }
+                likesNumber.textContent = item.likes;
+                likesAmount.textContent = updatedTotalLikes;
+            });
+        });
+    }
+    const likesContainer = document.querySelector(".likes_container");
+    const likesNumber = document.querySelector(".likes_number");
+    const likesAmount = document.querySelector(".likes");
+    const priceNumber = document.querySelector(".price");
+    likesAmount.textContent = updatedTotalLikes;
+    priceNumber.textContent = `${price}€/jour`;
+    likesNumber.appendChild(likesAmount);
+    likesContainer.appendChild(priceNumber);
 }

@@ -26,6 +26,14 @@
       <section class="photograph_gallery">
         <div class="photograph_filter">
           <p>Trier par</p>
+          <div class="dropdown">
+            <button class="dropbtn" data-value="popularity">Popularité</button>
+            <img class="arrow-top" src="/assets/icons/arrow-top.svg" alt="ouvrir">
+            <div class="dropdown-content">
+              <button class="filterBtn" data-value="date">Date</button>
+              <button class="filterBtn" data-value="title">Titre</button>
+            </div>
+          </div>
         </div>
         <div class="gallery_grid">
         </div>
@@ -75,6 +83,7 @@
 		</div>
 
     <script type="module" src="/scripts/pages/photographer.js"></script>
+    <script src="/scripts/components/filterGallery.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
   </body>
 </html>
