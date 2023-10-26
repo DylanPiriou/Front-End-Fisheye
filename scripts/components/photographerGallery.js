@@ -1,17 +1,42 @@
-import { handleModuleLikesPrice } from "./moduleLikesPrice.js";
+import { MediaFactory } from "./MediaFactory.js";
 
 // Gestion de la gallerie d'images
 export function createGallery(id, filteredMedia, totalLikes, price) {
+
     const grid = document.querySelector(".gallery_grid");
     const imgModalContainer = document.querySelector(".img_modal_container");
     const imgModal = document.querySelector(".img_modal");
     const closeModal = document.querySelector(".img_modal_close");
     const prevButton = document.querySelector(".img_modal_prev");
     const nextButton = document.querySelector(".img_modal_next");
+    const likesContainer = document.querySelector(".likes_container");
+    const likesNumber = document.querySelector(".likes_number");
+    const likesAmount = document.querySelector(".likes");
+    const priceNumber = document.querySelector(".price");
     let currentIndex;
     let updatedTotalLikes = totalLikes;
 
-    // Fonction pour effacer le contenu multimédia de la modal
+    // Gérer le clic sur l'élément ".img_modal_close"
+    closeModal.addEventListener('click', () => {
+        imgModalContainer.style.display = "none"; // Fermer la modal
+        clearModalContent(); // Effacer le contenu multimédia
+    });
+    // Gérer le clic sur le bouton "Suivant"
+    nextButton.addEventListener('click', () => {
+        if (currentIndex < filteredMedia.length - 1) {
+            currentIndex++;
+            handleMediaClick(filteredMedia[currentIndex]);
+        }
+    });
+    // Gérer le clic sur le bouton "Précédent"
+    prevButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            handleMediaClick(filteredMedia[currentIndex]);
+        }
+    });
+
+    // Reset le contenu précédent
     function clearModalContent() {
         const children = Array.from(imgModal.children);
         children.forEach(child => {
@@ -21,53 +46,25 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
         });
     }
 
-    // Gérer le clic sur l'élément ".img_modal_close"
-    closeModal.addEventListener('click', () => {
-        imgModalContainer.style.display = "none"; // Fermer la modal
-        clearModalContent(); // Effacer le contenu multimédia
-    });
-
-    // Gérer le clic sur le bouton "Suivant"
-    nextButton.addEventListener('click', () => {
-        if (currentIndex < filteredMedia.length - 1) {
-            currentIndex++;
-            handleMediaClick(filteredMedia[currentIndex]);
-        }
-    });
-
-    // Gérer le clic sur le bouton "Précédent"
-    prevButton.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            currentIndex--;
-            handleMediaClick(filteredMedia[currentIndex]);
-        }
-    });
+    const mediaFactory = new MediaFactory();
 
     // Gérer le clic sur une image ou une vidéo
     function handleMediaClick(item) {
+        clearModalContent();
         closeModal.src = "../../assets/icons/close-red.svg";
 
-        // Effacer le contenu multimédia précédent
-        clearModalContent();
+        // Utiliser la MediaFactory pour créer le média
+        const media = mediaFactory.createMedia(item);
 
-        // Créer une balise <img> ou <video> en fonction du type de média
-        if (item.image) {
-            const img = document.createElement("img");
-            img.className = "img_modal_picture";
-            img.src = `./assets/gallery/${id}/${item.image}`;
-            imgModal.appendChild(img);
-        } else if (item.video) {
-            const video = document.createElement("video");
-            video.className = "img_modal_picture";
-            video.src = `./assets/gallery/${id}/${item.video}`;
-            video.controls = true;
-            imgModal.appendChild(video);
-        }
+        // Créer la DOM Element correspondante
+        const mediaElement = media.createDOMElement();
 
-        // Mettre à jour le titre
-        const title = document.createElement("h3");
-        title.textContent = item.title;
-        imgModal.appendChild(title);
+        // Ajouter l'élément à imgModal
+        imgModal.appendChild(mediaElement);
+
+        // Créer et ajouter le titre
+        const titleElement = media.createTitleElement();
+        imgModal.appendChild(titleElement);
 
         // Afficher la modal
         imgModalContainer.style.display = "flex";
@@ -76,13 +73,12 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
     const dropdown = document.querySelector('.dropdown');
     const arrow = document.querySelector('.arrow-top')
     const buttons = document.querySelectorAll('.dropdown-content button');
+    const filterBtn = document.querySelectorAll(".filterBtn")
 
     dropdown.addEventListener('click', () => {
         dropdown.classList.toggle('active');
         arrow.classList.toggle("open");
     });
-
-    const filterBtn = document.querySelectorAll(".filterBtn")
 
     filteredMedia.sort((a, b) => b.likes - a.likes);
     updateGallery();
@@ -92,16 +88,16 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
             const dataValue = btn.getAttribute("data-value");
             const currentBtn = document.querySelector('.dropbtn');
             const currentDataValue = currentBtn.getAttribute('data-value');
-    
+
             // Échange des textes entre les boutons
             const currentText = currentBtn.textContent.trim();
             currentBtn.textContent = btn.textContent.trim();
             btn.textContent = currentText;
-    
+
             // Mise à jour de l'attribut data-value
             currentBtn.setAttribute('data-value', dataValue);
             btn.setAttribute('data-value', currentDataValue);
-    
+
             if (dataValue === "date") {
                 filteredMedia.sort((a, b) => new Date(b.date) - new Date(a.date));
                 updateGallery();
@@ -197,10 +193,7 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
             });
         });
     }
-    const likesContainer = document.querySelector(".likes_container");
-    const likesNumber = document.querySelector(".likes_number");
-    const likesAmount = document.querySelector(".likes");
-    const priceNumber = document.querySelector(".price");
+
     likesAmount.textContent = updatedTotalLikes;
     priceNumber.textContent = `${price}€/jour`;
     likesNumber.appendChild(likesAmount);
