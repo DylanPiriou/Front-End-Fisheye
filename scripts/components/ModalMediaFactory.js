@@ -1,4 +1,4 @@
-class MediaFactory {
+class ModalMediaFactory {
     createMedia(item) {
         console.log(item)
         if (item.image) {
@@ -52,4 +52,4 @@ class VideoMedia {
     }
 }
 
-export { MediaFactory, ImageMedia, VideoMedia };
+export { ModalMediaFactory, ImageMedia, VideoMedia };

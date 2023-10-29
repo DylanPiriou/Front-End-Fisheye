@@ -1,9 +1,12 @@
-import { MediaFactory } from "./MediaFactory.js";
+import { GalleryItem, GalleryImage, GalleryVideo } from './GalleryMediaFactory.js';
+import { ModalMediaFactory } from "./ModalMediaFactory.js";
+import { filterEvent } from "./filterEvent.js";
 
 // Gestion de la gallerie d'images
 export function createGallery(id, filteredMedia, totalLikes, price) {
 
     const grid = document.querySelector(".gallery_grid");
+    const likeWrapper = document.querySelector(".gallery_img_wrapper");
     const imgModalContainer = document.querySelector(".img_modal_container");
     const imgModal = document.querySelector(".img_modal");
     const closeModal = document.querySelector(".img_modal_close");
@@ -46,7 +49,7 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
         });
     }
 
-    const mediaFactory = new MediaFactory();
+    const modalMediaFactory = new ModalMediaFactory();
 
     // Gérer le clic sur une image ou une vidéo
     function handleMediaClick(item) {
@@ -54,7 +57,7 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
         closeModal.src = "../../assets/icons/close-red.svg";
 
         // Utiliser la MediaFactory pour créer le média
-        const media = mediaFactory.createMedia(item);
+        const media = modalMediaFactory.createMedia(item);
 
         // Créer la DOM Element correspondante
         const mediaElement = media.createDOMElement();
@@ -72,7 +75,6 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
 
     const dropdown = document.querySelector('.dropdown');
     const arrow = document.querySelector('.arrow-top')
-    const buttons = document.querySelectorAll('.dropdown-content button');
     const filterBtn = document.querySelectorAll(".filterBtn")
 
     dropdown.addEventListener('click', () => {
@@ -84,33 +86,7 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
     updateGallery();
 
     filterBtn.forEach(btn => {
-        btn.addEventListener("click", () => {
-            const dataValue = btn.getAttribute("data-value");
-            const currentBtn = document.querySelector('.dropbtn');
-            const currentDataValue = currentBtn.getAttribute('data-value');
-
-            // Échange des textes entre les boutons
-            const currentText = currentBtn.textContent.trim();
-            currentBtn.textContent = btn.textContent.trim();
-            btn.textContent = currentText;
-
-            // Mise à jour de l'attribut data-value
-            currentBtn.setAttribute('data-value', dataValue);
-            btn.setAttribute('data-value', currentDataValue);
-
-            if (dataValue === "date") {
-                filteredMedia.sort((a, b) => new Date(b.date) - new Date(a.date));
-                updateGallery();
-            }
-            else if (dataValue === "title") {
-                filteredMedia.sort((a, b) => a.title.localeCompare(b.title));
-                updateGallery();
-            }
-            else {
-                filteredMedia.sort((a, b) => b.likes - a.likes);
-                updateGallery();
-            }
-        });
+        filterEvent(btn, updateGallery, filteredMedia)
     });
 
     function updateGallery() {
@@ -122,80 +98,50 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
 
         // Parcourir chaque élément filtré
         filteredMedia.forEach((item, index) => {
-            const imgWrapper = document.createElement("div");
-            imgWrapper.className = "gallery_img_wrapper";
-            imgWrapper.setAttribute("aria-label", `Voir '${item.title}'`)
-            const imgContent = document.createElement("div");
-            imgContent.className = "gallery_img_content";
-            const imgTitle = document.createElement("h3");
-            imgTitle.className = "gallery_img_title";
-            const likesWrapper = document.createElement("span");
-            likesWrapper.className = "gallery_img_likes_wrapper";
-            const likesNumber = document.createElement("p");
-            const likesLogo = document.createElement("img");
-            likesLogo.src = "../../assets/icons/heart-red.svg";
             let liked = false;
+            let galleryItem;
 
+            // Créez un élément de galerie en fonction du type de média (image ou vidéo)
             if (item.image) {
-                const img = document.createElement("img");
-                img.src = `./assets/gallery/${id}/${item.image}`;
-                img.className = "illustration";
-                img.alt = item.title;
-                imgWrapper.appendChild(img);
-                imgTitle.textContent = item.title;
-                likesNumber.textContent = item.likes;
-                likesWrapper.appendChild(likesNumber);
-                likesWrapper.appendChild(likesLogo);
-                imgContent.appendChild(imgTitle);
-                imgContent.appendChild(likesWrapper);
-                imgWrapper.appendChild(imgContent);
-                grid.appendChild(imgWrapper);
+                galleryItem = new GalleryImage(item, liked);
+            } else if (item.video) {
+                galleryItem = new GalleryVideo(item, liked);
+            } else {
+                throw new Error('Type de média non pris en charge');
             }
 
-            if (item.video) {
-                const video = document.createElement("video");
-                video.src = `./assets/gallery/${id}/${item.video}`;
-                video.className = "illustration";
-                video.autoplay = true;
-                imgWrapper.appendChild(video);
-                imgTitle.textContent = item.title;
-                likesNumber.textContent = item.likes;
-                likesWrapper.appendChild(likesNumber);
-                likesWrapper.appendChild(likesLogo);
-                imgContent.appendChild(imgTitle);
-                imgContent.appendChild(likesWrapper);
-                imgWrapper.appendChild(imgContent);
-                grid.appendChild(imgWrapper);
-            }
+            // Créez l'élément DOM correspondant
+            const galleryItemElement = galleryItem.createDOMElement();
+            console.log(galleryItem)
 
-            // Event pour ouvrir la lightbox
-            imgWrapper.addEventListener('click', () => {
+            // Ajoutez l'élément à la grille (grid)
+            grid.appendChild(galleryItemElement);
+
+            galleryItemElement.children[1].children[0].children[1].addEventListener("click", () => {
+                updateLikes(galleryItem.liked);
+            })
+
+            galleryItemElement.addEventListener('click', () => {
                 currentIndex = index;
                 handleMediaClick(item, currentIndex);
             });
-
-            // Event pour ajouter/supprimer un j'aime
-            likesLogo.addEventListener("click", (e) => {
-                e.stopPropagation();
-                if (liked) {
-                    liked = false;
-                    likesLogo.src = "../../assets/icons/heart-red.svg";
-                    item.likes--;
-                    updatedTotalLikes--;
-                } else {
-                    liked = true;
-                    likesLogo.src = "../../assets/icons/heart-red-full.svg";
-                    item.likes++;
-                    updatedTotalLikes++;
-                }
-                likesNumber.textContent = item.likes;
-                likesAmount.textContent = updatedTotalLikes;
-            });
         });
+
     }
 
+    // Définissez la fonction pour mettre à jour les likes
+    function updateLikes(liked) {
+        if (liked) {
+            updatedTotalLikes = updatedTotalLikes + 1;
+        } else {
+            updatedTotalLikes = updatedTotalLikes - 1;
+        }
+        likesAmount.textContent = updatedTotalLikes; // Mettez à jour l'affichage des likes
+    }
+    
     likesAmount.textContent = updatedTotalLikes;
     priceNumber.textContent = `${price}€/jour`;
     likesNumber.appendChild(likesAmount);
     likesContainer.appendChild(priceNumber);
+
 }
