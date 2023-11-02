@@ -53,7 +53,7 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
     // Gérer le clic sur une image ou une vidéo
     function handleMediaClick(item) {
         clearModalContent();
-        closeModal.src = "../../assets/icons/close-red.svg";
+        closeModal.src = "./assets/icons/close-red.svg";
 
         // Utiliser la MediaFactory pour créer le média
         const media = modalMediaFactory.createMedia(item);

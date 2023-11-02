@@ -4,6 +4,7 @@ export function createPhotographerCard(photographer) {
     const { name, portrait, city, country, tagline, price } = photographer;
     const picture = `assets/photographers/${portrait}`;
     const article = document.createElement('article');
+    article.setAttribute("tabindex", 0)                             
     const img = document.createElement('img');
     img.alt = name;
     img.setAttribute("src", picture);

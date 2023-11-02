@@ -9,8 +9,8 @@
   </head>
   <body>
     <header>
-      <a href="/" aria-label="Revenir à l'accueil">
-        <img src="assets/images/logo.png" alt="fisheye" class="logo" />
+      <a href="/" aria-label="Revenir à l'accueil" tabindex="0">
+        <img src="./assets/images/logo.png" alt="fisheye" class="logo" />
       </a>
     </header>
     <main id="main">
@@ -26,12 +26,12 @@
       <section class="photograph_gallery">
         <div class="photograph_filter">
           <p>Trier par</p>
-          <div class="dropdown" aria-label="Filtrer la galerie">
+          <div class="dropdown" aria-label="Filtrer la galerie" tabindex="0">
             <button class="dropbtn" data-value="popularity">Popularité</button>
-            <img class="arrow-top" src="/assets/icons/arrow-top.svg" alt="ouvrir">
+            <img class="arrow-top" src="./assets/icons/arrow-top.svg" alt="ouvrir">
             <div class="dropdown-content">
-              <button class="filterBtn" data-value="date">Date</button>
-              <button class="filterBtn" data-value="title">Titre</button>
+              <button class="filterBtn" data-value="date" tabindex="0">Date</button>
+              <button class="filterBtn" data-value="title" tabindex="0">Titre</button>
             </div>
           </div>
         </div>
@@ -48,16 +48,16 @@
     </aside>
     <div class="img_modal_container">
       <div class="img_modal">
-        <img src="../../assets/icons/close-red.svg" alt="fermer la modale" class="img_modal_close">
-        <img src="assets/icons/arrow-left.svg" alt="image précédente" class="img_modal_prev">
-        <img src="assets/icons/arrow-right.svg" alt="image suivante" class="img_modal_next">
+        <img src="./assets/icons/close-red.svg" alt="fermer la modale" class="img_modal_close" tabindex="0">
+        <img src="./assets/icons/arrow-left.svg" alt="image précédente" class="img_modal_prev" tabindex="0">
+        <img src="./assets/icons/arrow-right.svg" alt="image suivante" class="img_modal_next" tabindex="0">
       </div>
     </div>
     <aside id="contact_modal">
 			<div class="modal">
 				<header class="contact_modal_header">
           <h1 class="contact_modal_title"></h1>
-          <img src="assets/icons/close.svg" alt="fermer la modale" onclick="closeModal()" />
+          <img src="./assets/icons/close.svg" alt="fermer la modale" onclick="closeModal()" />
         </header>
 				<form id="modal_form">
 					<div>

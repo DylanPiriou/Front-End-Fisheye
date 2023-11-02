@@ -6,7 +6,7 @@ class GalleryItem {
         this.mediaTitle = this.item.title;
         this.likesValue = document.createElement("p");
         this.likesLogo = document.createElement("img");
-        this.likesLogo.src = "../../assets/icons/heart-red.svg";
+        this.likesLogo.src = "./assets/icons/heart-red.svg";
     }
 
     createDOMElement() {
@@ -23,8 +23,9 @@ class GalleryItem {
         const likesWrapper = document.createElement("span");
         likesWrapper.className = "gallery_img_likes_wrapper";
         likesWrapper.setAttribute("aria-label", "Liker/Disliker")
+        likesWrapper.setAttribute("tabindex", 0);
 
-        this.likesLogo.src = "../../assets/icons/heart-red.svg";
+        this.likesLogo.src = "./assets/icons/heart-red.svg";
         this.likesLogo.alt = "bouton j'aime";
 
         this.likesValue.textContent = this.item.likes;
@@ -47,11 +48,11 @@ class GalleryItem {
     toggleLike() {
     
         if (this.liked) {
-            this.likesLogo.src = "../../assets/icons/heart-red.svg";
+            this.likesLogo.src = "./assets/icons/heart-red.svg";
             this.item.likes--;
             this.likesValue.textContent = this.item.likes;
         } else if (!this.liked) {
-            this.likesLogo.src = "../../assets/icons/heart-red-full.svg";
+            this.likesLogo.src = "./assets/icons/heart-red-full.svg";
             this.item.likes++;
             this.likesValue.textContent = this.item.likes;
         }
@@ -69,7 +70,8 @@ class GalleryImage extends GalleryItem {
     createDOMElement() {
         const imageWrapper = document.createElement("div");
         imageWrapper.className = "gallery_image_wrapper";
-        imageWrapper.setAttribute("aria-label", "Afficher l'image")
+        imageWrapper.setAttribute("aria-label", "Afficher l'image");
+        imageWrapper.setAttribute("tabindex", 0);
         
         const image = document.createElement("img");
         image.src = `./assets/gallery/${this.id}/${this.item.image}`;
@@ -95,7 +97,8 @@ class GalleryVideo extends GalleryItem {
     createDOMElement() {
         const videoWrapper = document.createElement("div");
         videoWrapper.className = "gallery_video_wrapper";
-        videoWrapper.setAttribute("aria-label", "Afficher la vidéo")
+        videoWrapper.setAttribute("aria-label", "Afficher la vidéo");
+        videoWrapper.setAttribute("tabindex", 0);
 
         const video = document.createElement("video");
         video.src = `./assets/gallery/${this.id}/${this.item.video}`;
