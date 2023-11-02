@@ -5,6 +5,7 @@ export function createPhotographerCard(photographer) {
     const picture = `assets/photographers/${portrait}`;
     const article = document.createElement('article');
     const img = document.createElement('img');
+    img.alt = name;
     img.setAttribute("src", picture);
 
     const content = document.createElement('div');

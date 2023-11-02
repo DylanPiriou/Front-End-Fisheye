@@ -16,14 +16,16 @@ class GalleryItem {
         const mediaContent = document.createElement("div");
         mediaContent.className = "gallery_img_content";
 
-        const imgTitle = document.createElement("h3");
+        const imgTitle = document.createElement("p");
         imgTitle.className = "gallery_img_title";
         imgTitle.textContent = this.mediaTitle;
 
         const likesWrapper = document.createElement("span");
         likesWrapper.className = "gallery_img_likes_wrapper";
+        likesWrapper.setAttribute("aria-label", "Liker/Disliker")
 
         this.likesLogo.src = "../../assets/icons/heart-red.svg";
+        this.likesLogo.alt = "bouton j'aime";
 
         this.likesValue.textContent = this.item.likes;
 
@@ -67,6 +69,7 @@ class GalleryImage extends GalleryItem {
     createDOMElement() {
         const imageWrapper = document.createElement("div");
         imageWrapper.className = "gallery_image_wrapper";
+        imageWrapper.setAttribute("aria-label", "Afficher l'image")
         
         const image = document.createElement("img");
         image.src = `./assets/gallery/${this.id}/${this.item.image}`;
@@ -92,6 +95,7 @@ class GalleryVideo extends GalleryItem {
     createDOMElement() {
         const videoWrapper = document.createElement("div");
         videoWrapper.className = "gallery_video_wrapper";
+        videoWrapper.setAttribute("aria-label", "Afficher la vidéo")
 
         const video = document.createElement("video");
         video.src = `./assets/gallery/${this.id}/${this.item.video}`;
