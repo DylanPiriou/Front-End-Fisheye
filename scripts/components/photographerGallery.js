@@ -1,4 +1,4 @@
-import { GalleryItem, GalleryImage, GalleryVideo } from './GalleryMediaFactory.js';
+import { GalleryImage, GalleryVideo } from './GalleryMediaFactory.js';
 import { ModalMediaFactory } from "./ModalMediaFactory.js";
 import { filterEvent } from "./filterEvent.js";
 
@@ -6,7 +6,6 @@ import { filterEvent } from "./filterEvent.js";
 export function createGallery(id, filteredMedia, totalLikes, price) {
 
     const grid = document.querySelector(".gallery_grid");
-    const likeWrapper = document.querySelector(".gallery_img_wrapper");
     const imgModalContainer = document.querySelector(".img_modal_container");
     const imgModal = document.querySelector(".img_modal");
     const closeModal = document.querySelector(".img_modal_close");
