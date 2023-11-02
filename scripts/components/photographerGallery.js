@@ -38,6 +38,8 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
         }
     });
 
+    // AJOUTER EVENT ENTER
+
     // Reset le contenu précédent
     function clearModalContent() {
         const children = Array.from(imgModal.children);
@@ -80,6 +82,8 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
         dropdown.classList.toggle('active');
         arrow.classList.toggle("open");
     });
+
+    // AJOUTER EVENT ENTER
 
     filteredMedia.sort((a, b) => b.likes - a.likes);
     updateGallery();
