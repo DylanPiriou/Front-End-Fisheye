@@ -30,9 +30,18 @@ class GalleryItem {
 
         this.likesValue.textContent = this.item.likes;
 
+        // Like au click
         likesWrapper.addEventListener("click", (e) => {
             e.stopPropagation();
             this.toggleLike();
+        });
+
+        // Like avec "Entrer"
+        likesWrapper.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.stopPropagation();
+                this.toggleLike();
+            }
         });
 
         likesWrapper.appendChild(this.likesValue);

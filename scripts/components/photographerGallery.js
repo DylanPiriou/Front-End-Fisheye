@@ -23,6 +23,14 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
         imgModalContainer.style.display = "none"; // Fermer la modal
         clearModalContent(); // Effacer le contenu multimédia
     });
+    // Gérer l'appui sur la touche "Enter" pour fermer la modal
+    closeModal.addEventListener('keydown', (event) => {
+        if (event.key === "Enter") {
+            imgModalContainer.style.display = "none"; // Fermer la modal
+            clearModalContent(); // Effacer le contenu multimédia
+        }
+    });
+
     // Gérer le clic sur le bouton "Suivant"
     nextButton.addEventListener('click', () => {
         if (currentIndex < filteredMedia.length - 1) {
@@ -30,6 +38,16 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
             handleMediaClick(filteredMedia[currentIndex]);
         }
     });
+    // Gérer l'appui sur la touche "Enter" pour passer à l'élément suivant
+    nextButton.addEventListener('keydown', (event) => {
+        if (event.key === "Enter") {
+            if (currentIndex < filteredMedia.length - 1) {
+                currentIndex++;
+                handleMediaClick(filteredMedia[currentIndex]);
+            }
+        }
+    });
+    
     // Gérer le clic sur le bouton "Précédent"
     prevButton.addEventListener('click', () => {
         if (currentIndex > 0) {
@@ -37,8 +55,15 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
             handleMediaClick(filteredMedia[currentIndex]);
         }
     });
-
-    // AJOUTER EVENT ENTER
+    // Gérer l'appui sur la touche "Enter" pour passer à l'élément précédent
+    prevButton.addEventListener('keydown', (event) => {
+        if (event.key === "Enter") {
+            if (currentIndex > 0) {
+                currentIndex--;
+                handleMediaClick(filteredMedia[currentIndex]);
+            }
+        }
+    });
 
     // Reset le contenu précédent
     function clearModalContent() {
@@ -82,8 +107,12 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
         dropdown.classList.toggle('active');
         arrow.classList.toggle("open");
     });
-
-    // AJOUTER EVENT ENTER
+    dropdown.addEventListener('keydown', (event) => {
+        if (event.key === "Enter") {
+            dropdown.classList.toggle('active');
+            arrow.classList.toggle("open");
+        }
+    });
 
     filteredMedia.sort((a, b) => b.likes - a.likes);
     updateGallery();
@@ -123,10 +152,21 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
             galleryItemElement.children[1].children[0].children[1].addEventListener("click", () => {
                 updateLikes(galleryItem.liked);
             })
+            galleryItemElement.children[1].children[0].children[1].addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                updateLikes(galleryItem.liked);
+                }
+            })
 
             galleryItemElement.addEventListener('click', () => {
                 currentIndex = index;
                 handleMediaClick(item, currentIndex);
+            });
+            galleryItemElement.addEventListener('keydown', (event) => {
+                if (event.key === "Enter") {
+                    currentIndex = index;
+                    handleMediaClick(item, currentIndex);
+                }
             });
         });
 
