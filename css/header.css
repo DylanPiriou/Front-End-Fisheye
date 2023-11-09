@@ -1,0 +1,24 @@
+header {
+    width: 100%;
+    max-width: 1600px;
+    padding: 0 3vw;
+    background: red;
+}
+
+header a {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+    text-decoration: none;
+}
+
+header a .logo {
+    margin: 0;
+    height: 50px;
+}
+
+header a h1 {
+    color: #901C1C;
+}
