@@ -20,7 +20,7 @@
           <span></span>
           <p></p>
         </div>
-        <button class="contact_button" aria-label="Ouvrir le formulaire de contact" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button" aria-label="Ouvrir le formulaire de contact">Contactez-moi</button>
         <img src="" alt="portrait du photographe">
       </section>
       <section class="photograph_gallery">
@@ -57,7 +57,7 @@
 			<div class="modal">
 				<header class="contact_modal_header">
           <h1 class="contact_modal_title"></h1>
-          <img src="./assets/icons/close.svg" alt="fermer la modale" onclick="closeModal()" />
+          <img src="./assets/icons/close.svg" alt="fermer la modale" class="contact-modal_close" tabindex="1" />
         </header>
 				<form id="modal_form">
 					<div>
@@ -82,6 +82,5 @@
 		</aside>
 
     <script type="module" src="scripts/pages/photographer.js"></script>
-    <script src="scripts/utils/contactForm.js"></script>
   </body>
 </html>

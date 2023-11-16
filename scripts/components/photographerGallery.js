@@ -172,19 +172,19 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
 
     }
 
-    // Définissez la fonction pour mettre à jour les likes
+    // Fonction pour mettre à jour les likes
     function updateLikes(liked) {
         if (liked) {
             updatedTotalLikes = updatedTotalLikes + 1;
         } else {
             updatedTotalLikes = updatedTotalLikes - 1;
         }
-        likesAmount.textContent = updatedTotalLikes; // Mettez à jour l'affichage des likes
+        likesAmount.textContent = updatedTotalLikes;
     }
     
+    // Mise à jour de la modale du bas
     likesAmount.textContent = updatedTotalLikes;
     priceNumber.textContent = `${price}€/jour`;
     likesNumber.appendChild(likesAmount);
     likesContainer.appendChild(priceNumber);
-
 }

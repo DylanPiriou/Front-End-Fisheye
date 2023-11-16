@@ -27,6 +27,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     const contactModalTitle = document.querySelector(".contact_modal_title");
     contactModalTitle.innerHTML = `Contactez-moi<br>${photographerData[0].name}`;
     const form = document.getElementById("modal_form");
+    const contactModal = document.getElementById("contact_modal");
+    const contactButton = document.querySelector(".contact_button");
+    const closeContactButton = document.querySelector(".contact-modal_close");
+    contactButton.addEventListener("click", () => {
+      contactModal.style.display = "block";
+      document.getElementById("prenom").focus();    
+    })
+    closeContactButton.addEventListener("click", () => {
+      contactModal.style.display = "none";  
+    })
+    closeContactButton.addEventListener("keydown", (e) => {
+      if (e.key === "Enter"){
+        contactModal.style.display = "none";  
+      }
+    })
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         const firstName = document.getElementById("prenom").value;
