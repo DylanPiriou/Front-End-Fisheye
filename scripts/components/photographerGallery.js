@@ -97,6 +97,7 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
 
         // Afficher la modal
         imgModalContainer.style.display = "flex";
+        closeModal.focus();
     }
 
     const dropdown = document.querySelector('.dropdown');
@@ -144,7 +145,6 @@ export function createGallery(id, filteredMedia, totalLikes, price) {
 
             // Créez l'élément DOM correspondant
             const galleryItemElement = galleryItem.createDOMElement();
-            console.log(galleryItem)
 
             // Ajoutez l'élément à la grille (grid)
             grid.appendChild(galleryItemElement);

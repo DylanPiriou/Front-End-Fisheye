@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const closeContactButton = document.querySelector(".contact-modal_close");
     contactButton.addEventListener("click", () => {
       contactModal.style.display = "block";
-      document.getElementById("prenom").focus();    
+      closeContactButton.focus();    
     })
     closeContactButton.addEventListener("click", () => {
       contactModal.style.display = "none";  

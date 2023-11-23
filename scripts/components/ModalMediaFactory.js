@@ -1,6 +1,5 @@
 class ModalMediaFactory {
     createMedia(item) {
-        console.log(item)
         if (item.image) {
             return new ImageMedia(item);
         } else if (item.video) {

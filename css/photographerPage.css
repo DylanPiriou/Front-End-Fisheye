@@ -216,11 +216,13 @@ main{
 .img_modal_prev {
     position: absolute;
     left: -8%;
+    cursor: pointer;
 }
 
 .img_modal_next {
     position: absolute;
     right: -8%;
+    cursor: pointer;
 }
 
 .modal {
