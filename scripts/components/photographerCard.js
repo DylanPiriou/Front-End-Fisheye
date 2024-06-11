@@ -1,6 +1,5 @@
 // Création des profils de photographe
 export function createPhotographerCard(photographer) {
-    console.log(photographer)
     const { name, portrait, city, country, tagline, price } = photographer;
     const picture = `assets/photographers/${portrait}`;
     const article = document.createElement('article');

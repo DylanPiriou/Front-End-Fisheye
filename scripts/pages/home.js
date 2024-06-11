@@ -2,10 +2,12 @@ import { getPhotographerData } from '../components/photographerService.js';
 import { createPhotographerCard } from '../components/photographerCard.js';
 import { addArticleClickEvent } from '../components/photographerEvent.js';
 
-async function renderPhotographers() {
+// Executer la fonction après le chargement du DOM
+document.addEventListener("DOMContentLoaded", async () => {
     const { photographers } = await getPhotographerData();
     const photographersSection = document.querySelector('.photographer_section');
 
+    // Créations des cartes photographes
     photographers.forEach((photographer) => {
         const photographerArticle = createPhotographerCard(photographer);
         photographerArticle.id = photographer.id;
@@ -13,14 +15,4 @@ async function renderPhotographers() {
         photographersSection.appendChild(photographerArticle);
         addArticleClickEvent(photographerArticle, photographer.id);
     });
-}
-
-renderPhotographers();
-
-// ------------- TODO ------------- //
-// Création gallerie (done)
-// Création modale (done)
-// Navigation dans la modale (done)
-// Système de likes (++/-- au click) (done)
-// Système de tri
-// Pouvoir naviguer avec tab
+});
