@@ -111,7 +111,7 @@ export function createGallery(photographerData, media) {
 
 		// Afficher la modal
 		imgModalContainer.style.display = "flex";
-		closeModal.focus();
+		closeModal.focus();		
 	}
 
 	const dropdown = document.querySelector(".dropdown");
